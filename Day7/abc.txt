@@ -1,0 +1,617 @@
+import java.io.*;
+interface Department{
+    public void getDetpName();
+    public void getDetpHead();
+}
+
+class Hostel
+{    
+    protected String hname,hlocation;
+    int noofroom;
+    void getHostelName() {
+        System.out.println("Name Of the Hostel : " + hname);
+    }
+    void getHostelLocation() {
+        System.out.println("Hostel Location:" + hlocation);
+    }
+    void getNoOfRoom() {
+        System.out.println("Total Room: " + noofroom);
+    }
+}
+
+class Student extends Hostel implements Department 
+{
+    BufferedReader sc=new BufferedReader(new InputStreamReader(System.in));
+    String sname, regno,elesub;
+    String deptName,deptHead;
+    int avgMarks;
+    void getStudentName() {
+        System.out.println("Student:" + sname);
+    }
+    String getStudentRegNo() {
+        return regno;
+    }
+    void getElectiveSubject() {
+        System.out.println("Elective Subject:" + elesub);
+    }
+    void getAvgMarks() {
+        System.out.println("Average Marks:" + avgMarks);
+    }
+    public void getDetpName() {
+        System.out.println("Department Name:" + deptName);
+    }
+    public void getDetpHead() {
+        System.out.println("Department Head: " + deptHead);
+    }
+    void addStudent() throws IOException {
+        System.out.print("Enter Student name : ");
+        sname=sc.readLine();
+        System.out.print("Enter Registration Number : ");
+        regno=sc.readLine();
+        System.out.print("Enter Elective Subject : ");
+        elesub=sc.readLine();
+        System.out.print("Enter Hostel Name : ");
+        hname=sc.readLine();
+	System.out.print("Enter No of room : ");
+        noofroom=Integer.parseInt(sc.readLine());
+        System.out.print("Enter Hostel Location : ");
+        hlocation=sc.readLine();
+        System.out.print("Enter Department Name : ");
+        deptName=sc.readLine();
+        System.out.print("Enter Department Head : ");
+        deptHead=sc.readLine();
+        System.out.print("Enter Avg Marks : ");
+        avgMarks=Integer.parseInt(sc.readLine());
+    }
+    void migrate() throws IOException{
+        System.out.print("Enter new Department Name : ");
+        deptName=sc.readLine();
+        System.out.print("Enter new Department Head : ");
+        deptHead=sc.readLine();
+    }
+    void display(){
+        getStudentName();
+        System.out.println(" Student Registration No is : " + getStudentRegNo());
+        getElectiveSubject();
+        getAvgMarks();
+        getDetpName();
+        getDetpHead();
+    }
+}
+
+class DepartmentMain
+{
+	static BufferedReader sc=new BufferedReader(new InputStreamReader(System.in));
+	public static void main(String []args) throws IOException {
+	Student[] st=new Student[100];
+	int sid=0;
+	while(true){
+            System.out.println(" 1. Admit a student");
+            System.out.println(" 2. Migrate a student");
+            System.out.println(" 3. Display");
+            System.out.println(" 4. Exit");
+            System.out.println(" Enter Your Choice");
+            int ch=Integer.parseInt(sc.readLine());
+	    switch(ch){
+                case 1: st[sid]=new Student();
+			st[sid++].addStudent();
+			break;
+
+		case 2: System.out.println("Enter Registration no : ");
+                    	String rno=sc.readLine();
+			boolean b=false;
+			for(int i=0;i<sid;i++)
+			{
+		3		String x=st[i].getStudentRegNo();
+				if(x.equals(rno))
+				{
+					st[i].migrate();
+					b=true;
+					break;
+				}
+			}
+			if(b==false)
+				System.out.println("Student Not Found");
+			break;
+
+		case 3: System.out.println("Enter Registration no : ");
+                    	String rnu=sc.readLine();
+                    	boolean bx=false;
+                    	for(int i=0;i<sid;i++){
+                        	if(st[i].getStudentRegNo().equals(rnu)){
+                        		bx=true;
+                        		st[i].display();
+                        		break;
+                        	}
+                    	}
+                    	if(bx==false)
+                        	System.out.println("Student Not Found");
+                    	break;
+
+		case 4:
+		    System.out.println("Exiting Program");
+                    System.exit(0);
+                default:
+                    System.out.println("--Invalid Entry--");
+            }
+        }
+    }
+}
+				
+
+
+------------------------
+
+
+interface inA { 
+	void f1A();
+	void f2A();
+}
+interface inB { 
+	void f1B();
+	void f2B();
+}
+interface inC { 
+	void f1C();
+	void f2C();
+}
+interface inD extends inA, inB, inC { 
+	void fD();
+}
+class Concrete { 
+	void display() {
+		System.out.println("Concrete Class");
+		System.out.println();
+	}
+}
+class Inherit extends Concrete implements inD {
+	public void f1A() {
+		System.out.println("Interface A Method 1");
+	}
+	public void f2A() {
+		System.out.println("Interface A Method 2");
+	}
+	public void f1B() {
+		System.out.println("Interface B Method 1");
+	}
+	public void f2B() {
+		System.out.println("Interface B Method 2");
+	}
+	public void f1C() {
+		System.out.println("Interface C Method 1");
+	}
+	public void f2C() {
+		System.out.println("Interface c Method 2");
+	}
+	public void fD() {
+		System.out.println("Interface D");
+	}
+	void callA(inA obj) {
+		obj.f1A();
+		obj.f2A();
+		System.out.println();
+//		obj.f1B(); 
+//		obj.f1C(); 
+	}
+
+	void callB(inB obj) {
+		obj.f1B();
+		obj.f2B();
+		System.out.println();
+//		obj.f1A(); 
+//		obj.f1C(); 
+	}
+
+	void callC(inC obj) {
+		obj.f1C();
+		obj.f2C();
+		System.out.println();
+//		obj.f1A(); 
+//		obj.f1B();
+	}
+	void callD(inD obj) {
+		obj.f1A();
+		obj.f1B();
+		obj.f1C();
+
+		obj.fD();
+		System.out.println();
+	}
+}
+
+public class A1 {
+	public static void main(String[] args) {
+		Inherit obj = new Inherit();
+		obj.display(); 
+		obj.callA(obj);
+		obj.callB(obj);
+		obj.callC(obj);
+		obj.callD(obj);
+	}
+}
+
+
+----------------------------
+
+
+interface inA { // first interface
+	void f1A();
+
+	void f2A();
+}
+
+interface inB { // 2nd interface
+	void f1B();
+
+	void f2B();
+}
+
+interface inC { // 3rd interface
+	void f1C();
+
+	void f2C();
+}
+
+interface inD extends inA, inB, inC { // 4th interface
+	void fD();
+}
+
+class Concrete { // concrete class
+	void display() {
+		System.out.println("Concrete Class");
+		System.out.println();
+	}
+}
+
+class Inherit extends Concrete implements inD {
+
+	// overriding 1st interface functions
+	public void f1A() {
+		System.out.println("inter A Func 1");
+
+	}
+
+	public void f2A() {
+		System.out.println("inter A Func 2");
+
+	}
+
+	// overriding 2nd interface functions
+	public void f1B() {
+		System.out.println("inter B Func 1");
+
+	}
+
+	public void f2B() {
+		System.out.println("inter B Func 2");
+
+	}
+
+	// overriding 3rd interface functions
+	public void f1C() {
+		System.out.println("inter C Func 1");
+
+	}
+
+	public void f2C() {
+		System.out.println("inter C Func 2");
+
+	}
+
+	// overriding 4th interface function
+	public void fD() {
+		System.out.println("inter D");
+	}
+
+	// calls 1st interface functions other interface functions not visible
+	void callA(inA obj) {
+		obj.f1A();
+		obj.f2A();
+		System.out.println();
+//		obj.f1B(); // function of 2nd interface not visible
+//		obj.f1C(); // function of 3rd interface not visible
+	}
+
+	// calls 2nd interface functions other interface functions not visible
+	void callB(inB obj) {
+		obj.f1B();
+		obj.f2B();
+		System.out.println();
+//		obj.f1A(); // function of 1st interface not visible
+//		obj.f1C(); // function of 3rd interface not visible
+	}
+
+	// calls 3rd interface functions other interface functions not visible
+	void callC(inC obj) {
+		obj.f1C();
+		obj.f2C();
+		System.out.println();
+//		obj.f1A(); // function of 1st interface not visible
+//		obj.f1B(); // function of 2nd interface not visible
+	}
+
+	// calls 4th interface functions other interface functions visible
+	void callD(inD obj) {
+		// function of first 3 interfaces visible
+		obj.f1A();
+		obj.f1B();
+		obj.f1C();
+
+		// function of 4th interface
+		obj.fD();
+		System.out.println();
+	}
+}
+
+public class A11 {
+	public static void main(String[] args) {
+		Inherit obj = new Inherit();
+		obj.display(); // calls concrete class function
+
+		/*
+		 * calls function with the same object getting upcasted implicitly to the
+		 * required interface type based on the function called
+		 */
+		obj.callA(obj);
+		obj.callB(obj);
+		obj.callC(obj);
+		obj.callD(obj);
+	}
+}
+
+
+
+---------------------------------
+
+import java.util.Scanner;
+
+interface Department 
+{
+   
+    void printDeptDetails();
+
+}
+
+
+
+class Hostel 
+{
+    
+    String hostelName;
+    
+    String hostelLocation;
+    
+    int numberOfRooms;
+
+       
+    public Hostel(String hostelName, String hostelLocation, int numberOfRooms) 
+    {
+        
+    	this.hostelName = hostelName;
+        
+    	this.hostelLocation = hostelLocation;
+       
+    	this.numberOfRooms = numberOfRooms;
+    
+    }
+
+     
+    public void printHostelDetails() 
+    {
+        
+    	System.out.println("Hostel Name: " + hostelName);
+        
+    	System.out.println("Hostel Location: " + hostelLocation);
+       
+    	System.out.println("Number of Rooms: " + numberOfRooms);
+    
+    }
+
+}
+
+
+class Student extends Hostel implements Department 
+{
+    
+    String studentName;
+    
+    int regdNo;
+    
+    String electiveSubject;
+    
+    double avgMarks;
+
+       
+    public Student(String studentName, int regdNo, String electiveSubject, double avgMarks, String hostelName, String hostelLocation, int numberOfRooms) 
+    {
+        
+	super(hostelName, hostelLocation, numberOfRooms);
+        
+	this.studentName = studentName;
+        
+	this.regdNo = regdNo;
+        
+	this.electiveSubject = electiveSubject;
+        
+	this.avgMarks = avgMarks;
+    
+    }
+
+    
+    public void printStudentDetails() 
+    {
+        
+	System.out.println("Student Name: " + studentName);
+        
+	System.out.println("Registration Number: " + regdNo);
+        
+	System.out.println("Elective Subject: " + electiveSubject);
+        
+	System.out.println("Average Marks: " + avgMarks);
+        
+	printHostelDetails(); 
+    }
+
+    
+    public void printDeptDetails() 
+    {
+        
+	System.out.println("Department Name: Computer Science");      
+	System.out.println("Department Head: Dr. John Doe");    
+    }
+
+}
+
+public class MainDept
+{
+    
+    public static void main(String[] args) 
+    {
+        
+	Scanner sc = new Scanner(System.in);
+
+        
+	Student[] students = new Student[100];    
+	int ch;
+        
+	do {
+            
+	    System.out.println("Menu:");
+            
+	    System.out.println("1. Admit new student");
+            
+	    System.out.println("2. Migrate a student");
+            
+	    System.out.println("3. Display details of a student");
+            
+	    System.out.println("4. Exit");
+            
+	    System.out.print("Enter your choice: ");
+            
+	    ch = sc.nextInt();
+
+            
+	    switch (ch) 
+	    {
+                
+		case 1:
+                    
+		admitNewStudent(sc, students);
+                    
+		break;
+                
+		case 2:
+  
+		displayStudentDetails(sc, students);                                  
+		break;
+                
+		case 3:
+                    
+		displayStudentDetails(sc, students);
+                    
+		break;
+                
+		case 4:
+                    
+		System.out.println("Exiting...");
+                    
+		break;
+                
+		default:
+                    
+		System.out.println("Invalid choice. Please enter a valid option.");
+            
+	    }
+        
+	} while (ch != 4);
+
+        
+	sc.close();
+    
+    }
+
+       
+    public static void admitNewStudent(Scanner sc, Student[] students) 
+    {
+        
+	System.out.print("Enter student name: ");
+        
+	String studentName = sc.next();
+        
+	System.out.print("Enter registration number: ");
+        
+	int regdNo = sc.nextInt();
+        
+	System.out.print("Enter elective subject: ");
+        
+	String electiveSubject = sc.next();
+        
+	System.out.print("Enter average marks: ");
+        
+	double avgMarks = sc.nextDouble();
+        
+	System.out.print("Enter hostel name: ");
+        
+	String hostelName = sc.next();
+        
+	System.out.print("Enter hostel location: ");
+        
+	String hostelLocation = sc.next();
+        
+	System.out.print("Enter number of rooms: ");
+        
+	int numberOfRooms = sc.nextInt();
+
+        
+	for (int i = 0; i < students.length; i++) 
+	{
+            
+	    if (students[i] == null) 
+	    {
+                
+		students[i] = new Student(studentName, regdNo, electiveSubject, avgMarks, hostelName, hostelLocation, numberOfRooms);
+                
+		System.out.println("Student admitted successfully!");
+                
+		break;
+            
+	    }
+        
+	}
+    
+    }
+
+     
+    public static void displayStudentDetails(Scanner sc, Student[] students) 
+    {
+        
+	System.out.print("Enter registration number of the student: ");
+        
+	int regdNo = sc.nextInt();
+
+        
+	boolean found = false;
+        
+	for (Student student : students) 
+	{
+            
+	    if (student != null && student.regdNo == regdNo) 
+	    {
+                
+		student.printStudentDetails();
+                
+		found = true;
+                
+		break;
+            
+	    }
+        
+	}
+        
+	if (!found)
+            
+	System.out.println("Student not found with registration number: " + regdNo);
+    
+    }
+
+}

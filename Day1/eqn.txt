@@ -1,0 +1,40 @@
+import java.util.Scanner;
+class LinEqu 
+	{
+	    public static void main(String args[]) 
+		{
+        		Scanner sc = new Scanner (System.in);
+
+			int a = sc.nextInt();
+
+			int b = sc.nextint();
+
+			int c = sc. nextint();
+
+			int d = sc.nextInt():
+
+			int m = sc.nextInt();
+
+			int n = sc.nextInt();
+
+			int den = a * d - b * c;
+
+			int p1 = m * d - b * n;
+
+			int p2 =n * a - m * c;
+
+			if (den == 0)
+			{
+				System.out.println("Solution is not possible as denominator is 0.");
+			}
+			else
+			{
+				float x1 = p1 / den;
+
+				float x2 - p2 / den;
+
+				System.out.println("X1 = " + x1);
+
+				System.out.println("X2 = " + x2);
+
+			}

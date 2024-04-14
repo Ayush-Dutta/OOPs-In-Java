@@ -1,0 +1,18 @@
+import java.util.*;
+class Cap 
+	{
+	    public static void main(String args[]) 
+		{
+			Scanner sc = new Scanner (System.in);
+			double L=sc.nextDouble();
+			double R=sc.nextDouble();
+			double C=0.01d;
+			for ( ; C <=0.1; C = C + 0.01)
+				{
+					double n1 = 1 / (L * C);
+					double n2 = (R*R) / (4* C * C);
+					double F = Math.sqrt(n1 - n2);
+					System.out.println("Frequency = " + F);
+				}
+		}
+	}

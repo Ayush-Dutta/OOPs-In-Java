@@ -1,0 +1,185 @@
+////circle
+
+import java.util.Scanner;
+
+class Circle {
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the radius : ");
+        double r = sc.nextDouble();
+        double area = (22 * r * r) / 7;
+        double circumference = (2 * 22 * r) / 7;
+        System.out.println("Area of the circle : " + area );
+        System.out.println("Circumference of the circle : " + circumference);
+    }
+}
+
+ 
+
+ 
+
+ 
+
+ 
+
+////leapyear
+
+import java.util.Scanner;
+class LeapYear
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner (System.in);
+        System.out.print("Enter a year : ");
+        int year = sc.nextInt();
+        if((year % 4 == 0) && (year % 100 != 0) || (year % 400 == 0))
+            System.out.println(year + " is a leap year.");    
+        else
+            System.out.println(year + " is not a leap year.");    
+    }
+}
+
+ 
+
+ 
+
+ 
+
+///palindrome
+
+ 
+
+import java.util.Scanner;
+
+class Palindrome 
+{
+    public static void main(String[] args) 
+    {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Enter a number or a string: ");
+            String input = scanner.nextLine();
+
+            if (isPalindrome(input)) 
+        {
+                    System.out.println(input + " is a palindrome.");
+            } 
+        else 
+        {
+                    System.out.println(input + " is not a palindrome.");
+            }
+
+            scanner.close();
+    }
+
+    public static boolean isPalindrome(String str)
+    {
+            int length = str.length();
+            for (int i = 0; i < length / 2; i++) 
+        {
+                if (str.charAt(i) != str.charAt(length - i - 1)) {
+                    return false;
+            }
+        }
+        return true;
+    }
+}
+
+ 
+
+ 
+
+ 
+
+ 
+
+////prime
+
+ 
+
+import java.util.Scanner;
+class Prime
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner (System.in);
+        System.out.print("Enter a number : ");
+        int num = sc.nextInt();
+        boolean flag = true;
+        if(num == 1 || num == 2 || num == 3)
+            flag = true;    
+        else
+            {
+                    for (int i = 2; i * i <= num; i++)
+                    {
+                        if(num % i == 0)
+                        {
+                                flag = false;
+                                break;
+                        }
+                    }
+            }
+            if(flag)
+                    System.out.println(num + " is a prime number.");
+            else
+                    System.out.println(num + " is not a prime number.");
+                
+    }
+}
+
+///triangle
+
+import java.util.*;
+
+class Triangle {
+    public static void main(String[] args)
+    {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the value of side a : ");
+        double a = sc.nextDouble();
+        System.out.print("Enter the value of side b : ");
+        double b = sc.nextDouble();
+        System.out.print("Enter the value of side c : ");
+        double c = sc.nextDouble();
+        if(a + b > c && b + c > a && a + c > b)
+        {
+            double s = (a + b + c) / 2;
+            double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+            if((a == b) && (b == c))
+            {
+                System.out.println("Triangle abc is an equilateral triangle.");
+                System.out.println("Area of the triangle : " + area);
+            }
+            else if((a != b) && (b != c) && (c != a))
+            {
+        if(((a * a) + (b * b) == c * c) || ((b * b) + (c * c) == a * a) || ((c * c) + (a * a) == b * b))
+        {
+            System.out.println("Triangle abc is a right angled scalene triangle.");
+                    System.out.println("Area of the triangle : " + area);
+        }
+        else
+        {
+            System.out.println("Triangle abc is a non right angled scalene triangle.");
+                    System.out.println("Area of the triangle : " + area);
+        }
+                
+            }
+            else
+            {
+        if(((a * a) + (b * b) == c * c) || ((b * b) + (c * c) == a * a) || ((c * c) + (a * a) == b * b))
+        {
+            System.out.println("Triangle abc is a right angled isosceles triangle.");
+                    System.out.println("Area of the triangle : " + area);
+        }
+        else
+        {
+            System.out.println("Triangle abc is a non right angled isosceles triangle.");
+                    System.out.println("Area of the triangle : " + area);
+        }
+               
+            }
+        }
+        else
+            System.out.println("abc is not a triangle.");
+    }
+}
