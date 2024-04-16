@@ -37,3 +37,46 @@ public class PingPong {
         pongThread.start();
     }
 }
+
+
+
+
+
+
+
+
+
+ALT
+
+
+import java.util.Random;
+
+class PrinterThread extends Thread {
+     String message;
+
+    public PrinterThread(String message) {
+        this.message = message;
+    }
+
+    public void run() {
+        Random random = new Random();
+        while (true) {
+            System.out.println(message);
+            try {
+                Thread.sleep(random.nextInt(1000)); // Random sleep time between 0 and 1000 milliseconds
+            } catch (InterruptedException e) {
+                System.out.println("Thread was interrupted");
+            }
+        }
+    }
+}
+
+public class PingPong {
+    public static void main(String[] args) {
+        Thread pingThread = new PrinterThread("ping");
+        Thread pongThread = new PrinterThread("PONG");
+
+        pingThread.start();
+        pongThread.start();
+    }
+}
