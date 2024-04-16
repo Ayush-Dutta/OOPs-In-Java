@@ -1,0 +1,39 @@
+import java.util.Random;
+
+class PingThread extends Thread {
+    public void run() {
+        Random random = new Random();
+        while (true) {
+            System.out.println("ping");
+            try {
+                Thread.sleep(random.nextInt(1000)); // Random sleep time between 0 and 1000 milliseconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+class PongThread extends Thread {
+    public void run() {
+        Random random = new Random();
+        while (true) {
+            System.out.println("PONG");
+            try {
+                Thread.sleep(random.nextInt(1000)); // Random sleep time between 0 and 1000 milliseconds
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class PingPong {
+    public static void main(String[] args) {
+        PingThread pingThread = new PingThread();
+        PongThread pongThread = new PongThread();
+
+        pingThread.start();
+        pongThread.start();
+    }
+}
