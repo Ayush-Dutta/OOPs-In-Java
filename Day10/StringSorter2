@@ -1,0 +1,75 @@
+import java.util.Scanner;
+
+public class StringSorter {
+    public static void main(String[] args) {
+        final int MAX_SIZE = 100;
+        final String[] strings = new String[MAX_SIZE];
+        final int[] count = {0};
+
+        Scanner scanner = new Scanner(System.in);
+
+        Thread inputThread = new Thread(() -> {
+            System.out.println("Enter strings (type 'done' to finish):");
+            while (true) {
+                synchronized (scanner) {
+                    String input = scanner.nextLine();
+                    if (input.equalsIgnoreCase("done")) {
+                        break;
+                    }
+                    if (count[0] < MAX_SIZE) {
+                        strings[count[0]] = input;
+                        count[0]++;
+                    } else {
+                        System.out.println("Maximum limit reached.");
+                        break;
+                    }
+                }
+            }
+        });
+
+        Thread sortThread = new Thread(() -> {
+            try {
+                inputThread.join();
+
+                for (int i = 0; i < count[0] - 1; i++) {
+                    for (int j = 0; j < count[0] - i - 1; j++) {
+                        if (strings[j].compareTo(strings[j + 1]) > 0) {
+                            String temp = strings[j];
+                            strings[j] = strings[j + 1];
+                            strings[j + 1] = temp;
+                        }
+                    }
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        Thread displayThread = new Thread(() -> {
+            try {
+                sortThread.join();
+                System.out.println("Sorted list:");
+                for (int i = 0; i < count[0]; i++) {
+                    System.out.println(strings[i]);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        inputThread.start();
+        sortThread.start();
+        displayThread.start();
+
+        try {
+            inputThread.join();
+            sortThread.join();
+            displayThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Close the Scanner object after all threads have finished
+        scanner.close();
+    }
+}
