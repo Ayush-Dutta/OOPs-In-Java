@@ -1,0 +1,27 @@
+import java.util.*;
+
+class Palindrome {
+
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter a number or a String");
+        String a = sc.nextLine();
+        String b = a.toLowerCase();
+        int len = b.length();
+        boolean isPalindrome = true; // Initialize a flag to track if it's a palindrome
+
+        for (int i = 0; i < len / 2; i++) {
+            if (b.charAt(i) != b.charAt(len - i - 1)) {
+                // If characters don't match, it's not a palindrome
+                isPalindrome = false;
+                break; // No need to continue checking
+            }
+        }
+
+        if (isPalindrome) {
+            System.out.println(a + " is Palindrome");
+        } else {
+            System.out.println(a + " is not Palindrome");
+        }
+    }
+}
